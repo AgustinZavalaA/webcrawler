@@ -30,6 +30,10 @@ public class MainController {
     }
 
     @FXML
+    /**
+     * Este método se encarga de realizar todo el proceso del Web Crawler al presionar 
+     * el botón start, extrayendo la información de las cajas de texto.
+     */
     public void handleStart() {
 
         // String cite = "https://www.rottentomatoes.com/tv/loki";

@@ -20,16 +20,30 @@ public class LinkFinder implements Runnable {
      */
     private static final long t0 = System.nanoTime();
 
+    /**
+     * Constructor que se encarga de crear un objeto de tipo LinkFinder, 
+     * recibiendo como parámetro el URL, y el LinkHandler
+     * @param url Recibe el URL en String.
+     * @param handler Recibe el objeto de tipo LinkHandler
+     */
     public LinkFinder(String url, LinkHandler handler) {
         this.url = url;
         this.linkHandler = handler;
     }
 
     @Override
+    /**
+     * Este método se encarga de ejecutar el proceso en cada uno de los Hilos.
+     */
     public void run() {
         getSimpleLinks(url);
     }
 
+    /**
+     * Este método se encarga de realizar el proceso de visita, extracción de los nodos y el tiempo
+     * empleado en realizar estas tareas en cada página visitada. Al final añade toda esta información a una lista
+     * @param url Recibe el URL de la página a visitar.
+     */
     private void getSimpleLinks(String url) {
         // si no se ha visitado
         if (!linkHandler.visited(url)) {

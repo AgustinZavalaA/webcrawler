@@ -14,9 +14,16 @@ public class HTMLAnalizer {
     private URL url;
     private String page = null;
     private CSVWriter csvFile;
+    List<String> infoList = new ArrayList<>();
 
-    public HTMLAnalizer(URL url) {
-        csvFile = new CSVWriter("out.csv");
+    /**
+     * Este constructor crea un objeto HTMLAnalizer recibiendo el url de la página que visitará
+     * y el nombre del archivo de salida.
+     * @param url
+     * @param name
+     */
+    public HTMLAnalizer(URL url, String name) {
+        csvFile = new CSVWriter(name);
         this.url = url;
         if (url.toString().contains("rottentomatoes"))
             page = "tomato";
@@ -27,8 +34,14 @@ public class HTMLAnalizer {
 
     }
 
-    List<String> infoList = new ArrayList<>();
-
+    
+    /**
+     * Este método se encarga de analizar la página en base a las propiedades que esta posee
+     * en su código fuente HTML, dicho esto, se encarga de buscar las coincidencias de la información que 
+     * se necesita recabar en base a las etiquetas HTML. Una vez encontradas, añade la información a una lista.
+     * @throws IOException Lanza cualquier excepción de IOException que se pueda generar
+     * @throws JSONException Lanza cualquier excepcion de JSONException que se pueda generar al analizar la página.
+     */
     public void analize() throws IOException, JSONException {
         infoList.clear();
         if (page != null) {

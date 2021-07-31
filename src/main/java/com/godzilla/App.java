@@ -17,7 +17,12 @@ public class App extends Application {
         launch(args);
     }
 
+     
     @Override
+    /**
+     * Este método se encarga de lanzar la vista del programa.
+     * @param primaryStage Recibe como parámetro el Stage primario.
+     */
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader();
         URL path = new URL("file:src/main/java/resources/WebCrawler.fxml");

@@ -20,6 +20,15 @@ public class LinkFinderAction extends RecursiveAction {
     private int depth;
     private String fname;
 
+    /**
+     * Constructor que se encarga de crear un objeto de tipo LinkFinderAction,
+     * recibiendo como parámetros el URL, el objeto LinkHandler, la profundidad, y el nombre
+     * del archivo de salida.
+     * @param url Recibe el URL de la página.
+     * @param cr Recibe el objeto LinkHandler.
+     * @param depth Reibe la profundidad de la navegación.
+     * @param fname Recibe el nombre del archivo de salida.
+     */
     public LinkFinderAction(String url, LinkHandler cr, int depth, String fname) {
         this.url = url;
         this.cr = cr;
@@ -28,6 +37,11 @@ public class LinkFinderAction extends RecursiveAction {
     }
 
     @Override
+    /**
+     * Este método se encarga de extraer información de las páginas visitadas, incluyendo los nodos 
+     * y el análisis HTML de la página. Cabe mencionar que este método es recursivo, y termina cuando la 
+     * profundidad llega al tope de la navegación. Esta información es añadida a una lista.
+     */
     protected void compute() {
         if (!cr.visited(url)) {
             try {
@@ -35,7 +49,7 @@ public class LinkFinderAction extends RecursiveAction {
                 URL urilink = new URL(url);
                 Parser parser = new Parser(urilink.openConnection());
                 NodeList list = parser.extractAllNodesThatMatch(new NodeClassFilter(LinkTag.class));
-                HTMLAnalizer analizer = new HTMLAnalizer(urilink);
+                HTMLAnalizer analizer = new HTMLAnalizer(urilink, fname);
                 analizer.analize();
 
                 for (int i = 0; i < list.size(); i++) {
@@ -49,7 +63,7 @@ public class LinkFinderAction extends RecursiveAction {
                 cr.addVisited(url);
 
                 if (cr.size() > depth) {
-                    // System.out.println(cr.x() + "Tiempo: " + (System.nanoTime() - t0));
+                    System.out.println(cr.x() + "Tiempo: " + (System.nanoTime() - t0));
                 } else {
                     // System.out.println(actions.toString());
 
